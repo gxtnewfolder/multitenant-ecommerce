@@ -1,8 +1,9 @@
 import { SearchInput } from "./search-input";
 import { Categories } from "./categories";
+import { Category } from "@/payload-types";
 
 interface Props {
-    data: any;
+    data: Category[];
 }
 
 export const SearchFilters = ({ data }: Props) => {

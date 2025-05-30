@@ -28,19 +28,17 @@ const Layout = async ({ children }: Props) => {
 
     const formattedData = data.docs.map((doc) => ({
         ...doc,
-        subcategories: (doc.subcategories?.docs ?? []).map((doc) => ({
+        subcategories: (doc.subcategories?.docs ?? []).map((subcat) => ({
             // Because of 'depth: 1' we are confident doc will be a Category
-            ...(doc as Category),
+            ...(subcat as Category),
             subcategories: undefined,
         }))
     }));
 
-    console.log({ data, formattedData });
-
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar />
-            <SearchFilters data={formattedData} />
+            <SearchFilters data={formattedData as Category[]} />
             <div className="flex-1 bg-[#F4F4F0]">
                 {children}
             </div>
