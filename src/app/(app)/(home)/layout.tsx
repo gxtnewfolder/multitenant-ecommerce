@@ -5,6 +5,7 @@ import { Navbar } from "./navbar";
 import { Footer } from "./footer";
 import { SearchFilters } from "./search-filters";
 import { Category } from '@/payload-types';
+import { CustomCategory } from "./types";
 
 interface Props {
     children: React.ReactNode;
@@ -24,9 +25,10 @@ const Layout = async ({ children }: Props) => {
                 equals: false,
             },
         },
+        sort: 'name',
     });
 
-    const formattedData = data.docs.map((doc) => ({
+    const formattedData: CustomCategory[] = data.docs.map((doc) => ({
         ...doc,
         subcategories: (doc.subcategories?.docs ?? []).map((subcat) => ({
             // Because of 'depth: 1' we are confident doc will be a Category
@@ -38,7 +40,7 @@ const Layout = async ({ children }: Props) => {
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar />
-            <SearchFilters data={formattedData as Category[]} />
+            <SearchFilters data={formattedData} />
             <div className="flex-1 bg-[#F4F4F0]">
                 {children}
             </div>
