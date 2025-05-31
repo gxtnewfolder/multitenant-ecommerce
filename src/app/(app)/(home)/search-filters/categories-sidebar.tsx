@@ -35,7 +35,7 @@ export const CategoriesSidebar = ({ open, onOpenChange, data }: Props) => {
 
     const handleCategoryClick = (category: CustomCategory) => {
         if (category.subcategories && category.subcategories.length > 0) {
-            setParentCategories(category.subcategories as CustomCategory[]);
+            setParentCategories(category.subcategories.map(subcat => ({ ...subcat, subcategories: [] })));
             setSelectedCategory(category);
         }
         else {
@@ -64,7 +64,7 @@ export const CategoriesSidebar = ({ open, onOpenChange, data }: Props) => {
         }
     }
 
-    const backgroundColor = selectedCategory?.color || "white";
+    const backgroundColor = selectedCategory?.color ?? "white";
 
     return (
         <Sheet open={open} onOpenChange={handleOpenChange}>
