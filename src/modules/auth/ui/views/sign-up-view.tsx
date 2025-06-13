@@ -21,7 +21,7 @@ import {
 import { registerSchema } from "../../schemas";
 import Link from "next/link";
 import { useTRPC } from "@/trpc/client";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const poppins = Poppins({
@@ -32,9 +32,11 @@ const poppins = Poppins({
 export const SignUpView = () => {
     const router = useRouter();
     const trpc = useTRPC();
+    const queryClient = useQueryClient();
     const register = useMutation(trpc.auth.register.mutationOptions({
-        onSuccess: () => {
+        onSuccess: async () => {
             toast.success("Account created successfully");
+            await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
             router.push("/");
         },
         onError: (error) => {
