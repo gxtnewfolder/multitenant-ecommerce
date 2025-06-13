@@ -6,7 +6,6 @@ import {
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 interface NavbarItem {
     href: string;
