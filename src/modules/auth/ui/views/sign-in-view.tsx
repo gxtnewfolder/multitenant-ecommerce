@@ -33,7 +33,7 @@ export const SignInView = () => {
     const trpc = useTRPC();
     const login = useMutation(trpc.auth.login.mutationOptions({
         onSuccess: () => {
-            toast.success("Account created successfully");
+            toast.success("Logged in successfully");
             router.push("/");
         },
         onError: (error) => {
